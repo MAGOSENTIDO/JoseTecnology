@@ -1,3 +1,15 @@
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    height: 50px; /* Ajusta según el tamaño de tu logo */
+    width: auto;
+    border-radius: 8px; /* Opcional: para bordes redondeados */
+    object-fit: contain;
+}
 /* RESET */
 * {
   box-sizing: border-box;
