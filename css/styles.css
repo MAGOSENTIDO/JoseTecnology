@@ -1,3 +1,35 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+/* BODY - Añadimos un degradado para que el efecto glass resalte */
+body {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #333;
+}
+
+/* HEADER con Efecto Glass */
+header {
+    background: rgba(255, 255, 255, 0.15); /* Fondo blanco muy transparente */
+    backdrop-filter: blur(12px); /* El desenfoque clave */
+    -webkit-backdrop-filter: blur(12px); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
 .logo-container {
     display: flex;
     align-items: center;
@@ -5,140 +37,97 @@
 }
 
 .logo {
-    height: 50px; /* Ajusta según el tamaño de tu logo */
+    height: 50px;
     width: auto;
-    border-radius: 8px; /* Opcional: para bordes redondeados */
-    object-fit: contain;
-}
-/* RESET */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Roboto", sans-serif;
-}
-
-/* BODY */
-body {
-  background-color: #ffffff;
-  color: #333;
-}
-
-/* HEADER */
-header {
-  background-color: #1e3a8a;
-  color: white;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header h1 {
-  font-size: 1.5rem;
+    border-radius: 50%; /* Cambiado a circular para verse más moderno */
+    border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 /* MENU */
 .menu {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-.menu a,
-.dropbtn {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    padding: 8px 15px;
+    border-radius: 8px;
 }
 
-.menu a:hover,
-.dropbtn:hover {
-  text-decoration: underline;
+.menu a:hover {
+    background: rgba(255, 255, 255, 0.2); /* Efecto hover en el cristal */
 }
 
-/* DROPDOWN */
-.dropdown {
-  position: relative;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 120%;
-  left: 0;
-  background-color: white;
-  min-width: 220px;
-  border-radius: 6px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  z-index: 10;
-}
-
-.dropdown-content a {
-  color: #333;
-  padding: 0.75rem 1rem;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #f3f4f6;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* HERO */
+/* HERO con Tarjeta Glass */
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 4rem 2rem;
-  background-color: #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    
+    /* Efecto Glassmorphism */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .hero h2 {
-  font-size: 2rem;
-  color: #1e3a8a;
-  margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: #ffffff; /* Blanco para que resalte en el fondo azul */
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .hero p {
-  font-size: 1.1rem;
-  max-width: 600px;
-  margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin-bottom: 2rem;
 }
 
 .hero img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 2rem;
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 /* WHATSAPP */
 .whatsapp-button {
-  background-color: #25d366;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  text-decoration: none;
+    background-color: #25d366;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px; /* Botón tipo píldora */
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
 }
 
 .whatsapp-button:hover {
-  background-color: #1ebe5d;
+    background-color: #1ebe5d;
+    transform: scale(1.05);
 }
 
 /* FOOTER */
 footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #1e3a8a;
-  color: white;
-  font-size: 0.9rem;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    color: white;
+    margin-top: 2rem;
 }
