@@ -3,8 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JoseTecnology</title>
+    <title>JoseTecnology - Buscador de Repuestos</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      /* Estilos básicos para el contenedor de resultados si no están en tu CSS */
+      #resultados-busqueda {
+        max-height: 450px;
+        overflow-y: auto;
+        margin: 15px 0;
+        padding: 0 10px;
+      }
+      .card-producto {
+        background: #fff;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -25,9 +45,102 @@
     </header>
 
     <form class="buscar-button">
-      <input type="text" placeholder="Buscar tu pantalla..." />
+      <input type="text" placeholder="Escribe el modelo de tu pantalla..." />
       <button type="submit">Buscar</button>
     </form>
+
+    <script>
+      let todosLosProductos = [];
+      const formulario = document.querySelector(".buscar-button");
+      const input = formulario.querySelector("input");
+
+      // Creamos el contenedor de resultados después del buscador
+      const contenedorResultados = document.createElement("div");
+      contenedorResultados.id = "resultados-busqueda";
+      formulario.parentNode.insertBefore(
+        contenedorResultados,
+        formulario.nextSibling
+      );
+
+      // 1. Cargar base de datos local
+      async function cargarDatos() {
+        try {
+          const respuesta = await fetch("productos.json");
+          todosLosProductos = await respuesta.json();
+          console.log("Inventario cargado correctamente");
+        } catch (e) {
+          console.error("Error cargando productos.json");
+        }
+      }
+
+      // 2. Lógica de búsqueda y cálculo
+      function ejecutarBusqueda() {
+        const busqueda = input.value.toLowerCase().trim();
+        contenedorResultados.innerHTML = ""; // Limpiar caché visual
+
+        if (busqueda.length < 2) return;
+
+        const filtrados = todosLosProductos.filter(
+          (p) =>
+            (p.nombre && p.nombre.toLowerCase().includes(busqueda)) ||
+            (p.alias && p.alias.toLowerCase().includes(busqueda))
+        );
+
+        if (filtrados.length === 0) {
+          contenedorResultados.innerHTML =
+            "<p style='text-align:center; color:gray; padding:20px;'>No se encontró el modelo. Escríbenos para consultar.</p>";
+          return;
+        }
+
+        // Mostrar primeros 15 resultados
+        filtrados.slice(0, 15).forEach((p) => {
+          // --- CÁLCULO DE PRECIO CON AUMENTO ---
+          const precioBase = parseFloat(
+            p.precio_venta_online || p.precio_venta || 0
+          );
+          const precioFinal = precioBase + 60000;
+
+          // Formatear a pesos colombianos
+          const precioFormateado = new Intl.NumberFormat("es-CO", {
+            style: "currency",
+            currency: "COP",
+            maximumFractionDigits: 0,
+          }).format(precioFinal);
+
+          // Crear mensaje para WhatsApp
+          const textoWhatsApp = encodeURIComponent(
+            `Hola JoseTecnology, me interesa la pantalla: ${p.nombre}. El precio con instalación es de ${precioFormateado}. ¿Tienen disponibilidad?`
+          );
+
+          // Crear la tarjeta (card)
+          const card = document.createElement("div");
+          card.className = "card-producto";
+          card.innerHTML = `
+            <div>
+              <div style="font-size:13px; font-weight:bold; color:#333; text-transform:uppercase;">${p.nombre}</div>
+              <div style="color:#2ecc71; font-weight:bold; font-size:1.1em;">${precioFormateado}</div>
+              <small style="color:#888; font-size:10px;">Algunas incluye instalación</small>
+            </div>
+            <a href="https://wa.me/573222190187?text=${textoWhatsApp}" 
+               target="_blank" 
+               style="background:#25d366; color:#fff; padding:8px 15px; border-radius:20px; text-decoration:none; font-size:12px; font-weight:bold;">
+               Pedir
+            </a>
+          `;
+          contenedorResultados.appendChild(card);
+        });
+      }
+
+      // Eventos
+      input.addEventListener("input", ejecutarBusqueda);
+      formulario.addEventListener("submit", (e) => {
+        e.preventDefault();
+        ejecutarBusqueda();
+      });
+
+      cargarDatos();
+    </script>
+
     <section class="hero">
       <h2>Reparación confiable de celulares</h2>
       <p>
