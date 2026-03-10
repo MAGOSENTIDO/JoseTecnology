@@ -200,7 +200,7 @@ header {
   background: white;
   padding: 14px 16px;
   border-bottom: 1px solid #eee;
-
+  margin-top: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -353,7 +353,14 @@ header {
     width: 90px;
   }
 }
+section {
+  margin: 0;
+  padding: 30px 20px;
+}
 /* parte de abajo footer */
+footer {
+  margin-top: 10px;
+}
 .footer-info {
   background: #020617;
   padding: 50px 20px;
