@@ -162,7 +162,7 @@ header {
 #resultados-busqueda {
   position: fixed;
 
-  top: 50px;
+  top: 90px;
   left: 50%;
   transform: translateX(-50%);
 
