@@ -8,26 +8,25 @@
 
 /* BODY - Añadimos un degradado para que el efecto glass resalte */
 body {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  background: radial-gradient(
+    circle at top,
+    #0f172a 0%,
+    #020617 60%,
+    #000000 100%
+  );
   background-attachment: fixed;
   min-height: 100vh;
-  color: #333;
+  color: #e5e7eb;
 }
-
 /* HEADER con Efecto Glass */
 header {
-  background: rgba(255, 255, 255, 0.15); /* Fondo blanco muy transparente */
-  backdrop-filter: blur(12px); /* El desenfoque clave */
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  justify-content: space-between;
+  padding: 10px 30px;
+}
+.buscar-header input {
+  width: 160px;
 }
 
 .logo-container {
@@ -46,8 +45,8 @@ header {
 /* MENU */
 .menu {
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
+  gap: 20px;
+  margin-left: 40px;
 }
 
 .menu a {
@@ -55,7 +54,7 @@ header {
   text-decoration: none;
   font-weight: 500;
   transition: 0.3s;
-  padding: 8px 15px;
+
   border-radius: 8px;
 }
 
@@ -65,35 +64,46 @@ header {
 
 /* HERO con Tarjeta Glass */
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 4rem 2rem;
-  margin: 2rem auto;
-  max-width: 800px;
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZX7ZcSMlybeEoNURbOXSZakWS_gP8yEsEwKScIinbNshVSzhZ9nXhbh0HUUxfrDLjRtXnTfgx4rCQudEjwQunTdvBMLVEoeEqwvbOUkkhHmjN3bLT3aRheL7Iy-fzJ1kaTwGjn7K4I641Hrya5mvlkY9dS513I9lhYdBwjWDp1M0-oh_uyo-IQrueLew/s2752/AAAA.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-  /* Efecto Glassmorphism */
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  height: 420px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  color: white;
+  position: relative;
+}
+/* oscurecer fondo para que se lea el texto */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
 }
 
 .hero h2 {
-  font-size: 2.5rem;
-  color: #ffffff; /* Blanco para que resalte en el fondo azul */
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 32px;
+  margin-bottom: 10px;
 }
 
 .hero p {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 600px;
-  margin-bottom: 2rem;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 .hero img {
@@ -103,41 +113,64 @@ header {
   margin-bottom: 2rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
-.buscar-button {
-  background-color: rgba(255, 255, 255, 0.95);
-  color: #111;
+.buscar-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 
-  padding: 1.3rem 2.5rem; /* MÁS ALTO, no exagerado */
-  font-size: 1.2rem;
-  font-weight: 500;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 10px;
 
-  border-radius: 999px; /* Píldora perfecta */
+  border-radius: 20px;
+}
+.buscar-header input::placeholder {
+  width: 300px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.buscar-header input {
+  background: transparent;
   border: none;
-
-  width: 100%;
-  max-width: 620px; /* Ancho elegante */
-  text-align: center;
-
-  display: block;
-  margin: 2.5rem auto;
-
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-
+  padding: 8px 12px;
+  color: white;
   outline: none;
-  transition: all 0.3s ease;
+  width: 160px;
+}
+.buscar-header button {
+  background: #25d366;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+}
+#resultados-busqueda {
+  position: fixed;
+
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 520px;
+  max-height: 420px;
+
+  overflow-y: auto;
+
+  background: white;
+  border-radius: 12px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+
+  z-index: 2000;
 }
 
 /* WHATSAPP */
 .whatsapp-button {
-  background-color: #25d366;
+  background: #25d366;
+  padding: 12px 25px;
+  border-radius: 30px;
   color: white;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border-radius: 50px; /* Botón tipo píldora */
   text-decoration: none;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  font-weight: bold;
 }
 
 .whatsapp-button:hover {
@@ -154,17 +187,68 @@ footer {
   color: white;
   margin-top: 2rem;
 }
-.whatsapp-button:hover {
-  background-color: #1ebe5d;
+
+.card-producto {
+  background: white;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 14px;
+
+  transition: 0.2s;
+}
+
+.card-producto:hover {
+  background: #f3f4f6;
+}
+/* secciones */
+.seccion {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+  color: white;
+}
+
+.seccion h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+/* MAPA */
+.direccion-info {
+  text-align: center;
+  max-width: 320px;
+}
+
+.direccion-texto {
+  margin-top: 10px;
+  line-height: 1.6;
+  font-size: 16px;
+  color: #e5e7eb;
+}
+
+.btn-maps {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 12px 22px;
+  background: #25d366;
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-maps:hover {
+  background: #1ebe5d;
   transform: scale(1.05);
 }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-  color: white;
-  margin-top: 2rem;
+.mapa-link iframe {
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
