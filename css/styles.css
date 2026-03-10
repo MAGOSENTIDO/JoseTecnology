@@ -60,6 +60,14 @@ header {
   transition: 0.3s;
   border-radius: 8px;
 }
+.buscar-header input {
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  color: white;
+  outline: none;
+  width: 120px; /* antes 160 */
+}
 
 .menu a:hover {
   background: rgba(255, 255, 255, 0.2); /* Efecto hover en el cristal */
