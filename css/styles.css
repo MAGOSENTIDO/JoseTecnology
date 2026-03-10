@@ -26,7 +26,12 @@ header {
   padding: 10px 30px;
 }
 .buscar-header input {
-  width: 160px;
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  color: white;
+  outline: none;
+  width: 120px; /* antes 160 */
 }
 
 .logo-container {
@@ -262,4 +267,23 @@ footer {
 .mapa-link iframe {
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 10px 10px;
+  }
+
+  .menu {
+    gap: 8px;
+  }
+
+  .menu a {
+    font-size: 13px;
+    padding: 4px;
+  }
+
+  .buscar-header input {
+    width: 90px;
+  }
 }
