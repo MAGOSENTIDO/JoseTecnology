@@ -215,7 +215,7 @@ header {
 }
 /* secciones */
 .seccion {
-  padding: 60px 20px;
+  padding: 15px 15px;
   max-width: 900px;
   margin: auto;
   text-align: center;
@@ -291,6 +291,48 @@ header {
 
 .galeria img:hover {
   transform: scale(1.05);
+}
+/* marcas */
+.marcas {
+  padding: 60px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.marcas-slider {
+  overflow: hidden;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.marcas-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: marcasScroll 25s linear infinite;
+}
+
+.marcas-track span {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.marcas-track span:hover {
+  background: #25d366;
+  cursor: pointer;
+}
+
+@keyframes marcasScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 600px) {
