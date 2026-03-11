@@ -104,6 +104,15 @@
 
 </div>
 
+<section class="ofertas">
+
+<h2>🔥 Ofertas de Pantallas</h2>
+<p>Pantallas disponibles con instalación incluida</p>
+
+<div id="lista-ofertas"></div>
+
+</section>
+
 </section>
     <section id="direccion" class="direccion">
            <h3>📍 Nuestra Tienda</h3>
@@ -175,95 +184,203 @@
     <footer>&copy; 2025 JoseTecnology - Todos los derechos reservados</footer>
 
     <script>
-      let todosLosProductos = [];
-      const formulario = document.querySelector(".buscar-header");
-      const input = formulario.querySelector("input");
+     let todosLosProductos = [];
 
-      // Creamos el contenedor de resultados después del buscador
-      const contenedorResultados = document.createElement("div");
-      contenedorResultados.id = "resultados-busqueda";
-      formulario.parentNode.insertBefore(
-        contenedorResultados,
-        formulario.nextSibling,
-      );
+const formulario = document.querySelector(".buscar-header");
+const input = formulario.querySelector("input");
 
-      // 1. Cargar base de datos local
-      async function cargarDatos() {
-        try {
-          const respuesta = await fetch("productos.json");
-          todosLosProductos = await respuesta.json();
-          console.log("Inventario cargado correctamente");
-        } catch (e) {
-          console.error("Error cargando productos.json");
-        }
-      }
+// contenedor resultados buscador
+const contenedorResultados = document.createElement("div");
+contenedorResultados.id = "resultados-busqueda";
 
-      // 2. Lógica de búsqueda y cálculo
-      function ejecutarBusqueda() {
-        const busqueda = input.value.toLowerCase().trim();
-        contenedorResultados.innerHTML = ""; // Limpiar caché visual
+formulario.parentNode.insertBefore(
+  contenedorResultados,
+  formulario.nextSibling
+);
 
-        if (busqueda.length < 2) return;
+// ===============================
+// CARGAR INVENTARIO
+// ===============================
 
-        const filtrados = todosLosProductos.filter(
-          (p) =>
-            (p.nombre && p.nombre.toLowerCase().includes(busqueda)) ||
-            (p.alias && p.alias.toLowerCase().includes(busqueda)),
-        );
+async function cargarDatos() {
 
-        if (filtrados.length === 0) {
-          contenedorResultados.innerHTML =
-            "<p style='text-align:center; color:gray; padding:20px;'>No se encontró el modelo. Escríbenos para consultar.</p>";
-          return;
-        }
+  try {
 
-        // Mostrar primeros 15 resultados
-        filtrados.slice(0, 15).forEach((p) => {
-          // --- CÁLCULO DE PRECIO CON AUMENTO ---
-          const precioBase = parseFloat(
-            p.precio_venta_online || p.precio_venta || 0,
-          );
-          const precioFinal = precioBase + 75000;
+    const respuesta = await fetch("productos.json");
 
-          // Formatear a pesos colombianos
-          const precioFormateado = new Intl.NumberFormat("es-CO", {
-            style: "currency",
-            currency: "COP",
-            maximumFractionDigits: 0,
-          }).format(precioFinal);
+    todosLosProductos = await respuesta.json();
 
-          // Crear mensaje para WhatsApp
-          const textoWhatsApp = encodeURIComponent(
-            `Hola JoseTecnology, me interesa la pantalla: ${p.nombre}. El precio con instalación es de ${precioFormateado}. ¿Tienen disponibilidad?`,
-          );
+    console.log("Inventario cargado correctamente");
 
-          // Crear la tarjeta (card)
-          const card = document.createElement("div");
-          card.className = "card-producto";
-          card.innerHTML = `
-            <div>
-              <div style="font-size:13px; font-weight:bold; color:#333; text-transform:uppercase;">${p.nombre}</div>
-              <div style="color:#2ecc71; font-weight:bold; font-size:1.1em;">${precioFormateado}</div>
-              <small style="color:#888; font-size:10px;">Coordinar envío o instalación</small>
-            </div>
-            <a href="https://wa.me/573222190187?text=${textoWhatsApp}" 
-               target="_blank" 
-               style="background:#25d366; color:#fff; padding:8px 15px; border-radius:20px; text-decoration:none; font-size:12px; font-weight:bold;">
-               Pedir
-            </a>
-          `;
-          contenedorResultados.appendChild(card);
-        });
-      }
+    // cargar ofertas en otra sección
+    cargarOfertas();
 
-      // Eventos
-      input.addEventListener("input", ejecutarBusqueda);
-      formulario.addEventListener("submit", (e) => {
-        e.preventDefault();
-        ejecutarBusqueda();
-      });
+  } catch (e) {
 
-      cargarDatos();
+    console.error("Error cargando productos.json");
+
+  }
+
+}
+
+// ===============================
+// BUSCADOR (NO SE MODIFICA)
+// ===============================
+
+function ejecutarBusqueda() {
+
+  const busqueda = input.value.toLowerCase().trim();
+
+  contenedorResultados.innerHTML = "";
+
+  if (busqueda.length < 2) return;
+
+  const filtrados = todosLosProductos.filter(
+    (p) =>
+      (p.nombre && p.nombre.toLowerCase().includes(busqueda)) ||
+      (p.alias && p.alias.toLowerCase().includes(busqueda)),
+  );
+
+  if (filtrados.length === 0) {
+    contenedorResultados.innerHTML =
+      "<p style='text-align:center;color:gray;padding:20px;'>No se encontró el modelo. Escríbenos para consultar.</p>";
+    return;
+  }
+
+  filtrados.slice(0, 15).forEach((p) => {
+
+    const precioBase = parseFloat(
+      p.precio_venta_online || p.precio_venta || 0,
+    );
+
+    const precioFinal = precioBase + 75000;
+
+    const precioFormateado = new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      maximumFractionDigits: 0,
+    }).format(precioFinal);
+
+    const textoWhatsApp = encodeURIComponent(
+      `Hola JoseTecnology, me interesa la pantalla: ${p.nombre}. El precio con instalación es de ${precioFormateado}. ¿Tienen disponibilidad?`,
+    );
+
+    const card = document.createElement("div");
+
+    card.className = "card-producto";
+
+    card.innerHTML = `
+    <div>
+      <div style="font-size:13px;font-weight:bold;color:#333;text-transform:uppercase;">
+      ${p.nombre}
+      </div>
+
+      <div style="color:#2ecc71;font-weight:bold;font-size:1.1em;">
+      ${precioFormateado}
+      </div>
+
+      <small style="color:#888;font-size:10px;">
+      Coordinar envío o instalación
+      </small>
+    </div>
+
+    <a href="https://wa.me/573222190187?text=${textoWhatsApp}" 
+       target="_blank"
+       style="background:#25d366;color:#fff;padding:8px 15px;border-radius:20px;text-decoration:none;font-size:12px;font-weight:bold;">
+       Pedir
+    </a>
+    `;
+
+    contenedorResultados.appendChild(card);
+
+  });
+
+}
+
+// ===============================
+// SECCION OFERTAS (SEPARADA)
+// ===============================
+
+function cargarOfertas(){
+
+const contenedor = document.getElementById("lista-ofertas");
+
+if(!contenedor) return;
+
+contenedor.innerHTML="";
+
+const ofertas = todosLosProductos.filter(p=>{
+
+const precio = parseFloat(
+p.precio_venta_online || p.precio_venta || 0
+);
+
+return precio < 42000;
+
+});
+
+ofertas.slice(0,12).forEach(p=>{
+
+const precioOferta = 100000;
+
+const precioFormateado = new Intl.NumberFormat("es-CO",{
+style:"currency",
+currency:"COP",
+maximumFractionDigits:0
+}).format(precioOferta);
+
+const textoWhats = encodeURIComponent(
+`Hola JoseTecnology, vi la oferta de pantalla ${p.nombre} por ${precioFormateado}. ¿Está disponible?`
+);
+
+const card = document.createElement("div");
+
+card.className="card-oferta";
+
+card.innerHTML = `
+<div style="font-size:13px;font-weight:bold;color:#333;text-transform:uppercase;">
+${p.nombre}
+</div>
+
+<div style="color:#e74c3c;font-weight:bold;font-size:1.1em;">
+${precioFormateado}
+</div>
+
+<small style="color:#888;font-size:10px;">
+Oferta con instalación incluida
+</small>
+
+<br>
+
+<a href="https://wa.me/573222190187?text=${textoWhats}"
+target="_blank"
+style="background:#25d366;color:#fff;padding:6px 12px;border-radius:20px;text-decoration:none;font-size:12px;font-weight:bold;">
+Pedir
+</a>
+`;
+
+contenedor.appendChild(card);
+
+});
+
+}
+
+// ===============================
+// EVENTOS
+// ===============================
+
+input.addEventListener("input", ejecutarBusqueda);
+
+formulario.addEventListener("submit", (e) => {
+
+e.preventDefault();
+
+ejecutarBusqueda();
+
+});
+
+// iniciar sistema
+cargarDatos();
     </script>
     
   </body>
