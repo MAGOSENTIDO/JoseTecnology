@@ -209,7 +209,10 @@ header {
 
   transition: 0.2s;
 }
-
+.card-oferta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
 .card-producto:hover {
   background: #f3f4f6;
 }
@@ -327,10 +330,12 @@ header {
 }
 /* ofertas */
 .ofertas {
-  background: linear-gradient(135deg, #ff3b3b, #b30000);
-  padding: 50px 20px;
-  text-align: center;
+  padding: 60px 20px;
+
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #020617 100%);
+
   color: white;
+  text-align: center;
 }
 
 .ofertas h2 {
@@ -339,20 +344,22 @@ header {
 }
 
 #lista-ofertas {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  justify-content: center;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .card-oferta {
   background: white;
   color: #111;
+  border-radius: 10px;
   padding: 15px;
   border-radius: 12px;
   width: 220px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: 0.2s;
 }
 
 .card-oferta .precio {
@@ -384,7 +391,11 @@ header {
   header {
     padding: 10px 10px;
   }
-
+  @media (max-width: 600px) {
+    #lista-ofertas {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
   .menu {
     gap: 8px;
   }
