@@ -325,7 +325,52 @@ header {
   background: #25d366;
   cursor: pointer;
 }
+/* ofertas */
+.ofertas {
+  background: linear-gradient(135deg, #ff3b3b, #b30000);
+  padding: 50px 20px;
+  text-align: center;
+  color: white;
+}
 
+.ofertas h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+#lista-ofertas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.card-oferta {
+  background: white;
+  color: #111;
+  padding: 15px;
+  border-radius: 12px;
+  width: 220px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.card-oferta .precio {
+  font-size: 22px;
+  color: #e60023;
+  font-weight: bold;
+}
+
+.card-oferta a {
+  display: inline-block;
+  margin-top: 10px;
+  background: #25d366;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 13px;
+}
 @keyframes marcasScroll {
   0% {
     transform: translateX(0);
