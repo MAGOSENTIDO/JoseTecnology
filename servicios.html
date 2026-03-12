@@ -1,36 +1,229 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JoseTecnology | Servicio Técnico</title>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-14C7D12C3N"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-14C7D12C3N');
-</script>
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>JoseTecnology | Servicios Streaming</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        background: #0f172a;
+        color: white;
+        margin: 0;
+        text-align: center;
+      }
+
+      .menu {
+        display: flex;
+        gap: 15px;
+        padding: 10px;
+        background: #020617;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      button {
+        margin: 4px;
+        padding: 6px 10px;
+        border: none;
+        border-radius: 5px;
+        background: #22c55e;
+        color: white;
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      button:hover {
+        background: #16a34a;
+      }
+
+      .combo {
+        background: #f59e0b;
+      }
+
+      .combo:hover {
+        background: #d97706;
+      }
+
+      #lista-servicios {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 15px;
+      }
+
+      #carrito {
+        margin: 15px;
+        padding: 10px;
+        background: #020617;
+        border-radius: 6px;
+      }
+
+      #total {
+        margin: 10px;
+        font-size: 18px;
+      }
+    </style>
   </head>
+
   <body>
     <header>
-      <div class="logo-container">
-        <img
-          src="rs/FB_IMG_1752676650653.jpg"
-          alt="Logo JoseTecnology"
-          class="logo"
-        />
-        <h1>JoseTecnology</h1>
-      </div>
       <nav class="menu">
-        <a href="index.html">Inicio</a>
-        <a href="servicios.html">Cuentas stream</a>
-        <a href="software.html">Servicio Tecnico</a>
-        <a href="//wa.me/573222190187" target="_blank">Contactanos</a>
+        <a href="#">Inicio</a>
+        <a href="#">Cuentas stream</a>
+        <a href="#">Servicio Técnico</a>
+        <a href="https://wa.me/573222190187">Contactanos</a>
       </nav>
     </header>
+
+    <h2>Servicios seleccionados</h2>
+
+    <div id="carrito"></div>
+
+    <h3 id="total">Total: $0</h3>
+
+    <button onclick="enviarWhatsapp()">Enviar pedido por WhatsApp</button>
+
+    <h2>Servicios disponibles</h2>
+
+    <div id="lista-servicios"></div>
+
+    <script>
+      const servicios = [
+        { nombre: "Netflix Estándar", precio: 15000 },
+        { nombre: "Netflix Original 33 Dias", precio: 17000 },
+        { nombre: "Netflix Completo", precio: 35000 },
+
+        { nombre: "Disney+ Estándar", precio: 8000 },
+        { nombre: "Disney+ Premium Ori", precio: 13000 },
+        { nombre: "Disney+ Completo", precio: 20000 },
+
+        { nombre: "HBO MAX", precio: 10000 },
+        { nombre: "HBO MAX Completo", precio: 15000 },
+        { nombre: "Max Platino", precio: 10000 },
+        { nombre: "Max Platino Completa", precio: 25000 },
+        { nombre: "Amazon Prime Video", precio: 10000 },
+        { nombre: "Amazon Primer Completo", precio: 18000 },
+        { nombre: "Plex pantalla", precio: 10000 },
+        { nombre: "Prlex Completo", precio: 18000 },
+        { nombre: "Canva (30) Dias", precio: 10000 },
+        { nombre: "Canva (90) Dias", precio: 17000 },
+        { nombre: "Canva Pro 12 Meses", precio: 40000 },
+        { nombre: "Paramount+", precio: 8000 },
+        { nombre: "Paramount+ Completo", precio: 17000 },
+        { nombre: "Crunchyroll", precio: 8000 },
+        { nombre: "Crunchyroll Completo", precio: 17000 },
+        { nombre: "UNIVERSAL+ PANTALLA", precio: 12000 },
+        { nombre: "UNIVERSAL COMPLETA", precio: 22000 },
+        { nombre: "FLUJO TV (1DISPO)", precio: 15000 },
+        { nombre: "SMART ONE (Codigo)", precio: 22000 },
+
+        { nombre: "IPTV Original", precio: 15000 },
+        { nombre: "IPTV Completa", precio: 20000 },
+        { nombre: "IPTV Completa 6 Meses", precio: 50000 },
+        { nombre: "IPTV Completa 12 Meses", precio: 70000 },
+        { nombre: "Vix (30) Dias", precio: 8000 },
+        { nombre: "Vix Completo", precio: 15000 },
+        { nombre: "Chat Gpt 5.0 (30) Dias correo Propio", precio: 19000 },
+        { nombre: "DUOLINGO PRO (30) Dias", precio: 10000 },
+        { nombre: "Flujo Tv Completa", precio: 20000 },
+        { nombre: "Flujo TV 3 Meses", precio: 65000 },
+        { nombre: "Flujo TV 6 Meses", precio: 125000 },
+        { nombre: "Flujo TV Panel 30 creditos COPIA", precio: 220000 },
+        { nombre: "Flujo TV Panel 30 Creditos", precio: 450000 },
+        { nombre: "Spotify 30 días", precio: 14000 },
+        { nombre: "Spotify 60 días", precio: 22000 },
+        { nombre: "Spotify 90 días", precio: 27000 },
+
+        { nombre: "YouTube Premium 30 días", precio: 15000 },
+        { nombre: "YouTube Premium 90 días", precio: 30000 },
+
+        { nombre: "Netflix & Crunchyroll", precio: 20000, combo: true },
+        { nombre: "Netflix & HBO Max Platino", precio: 20000, combo: true },
+        { nombre: "Netflix & Amazon Primer", precio: 20000, combo: true },
+        { nombre: "Paquete Offices 1 año", precio: 45000, combo: true },
+      ];
+
+      servicios.sort((a, b) => a.precio - b.precio);
+
+      const lista = document.getElementById("lista-servicios");
+
+      servicios.forEach((s, i) => {
+        let clase = s.combo ? "combo" : "";
+
+        lista.innerHTML += `
+
+<button class="${clase}" onclick="agregar(${i})">
+
+${s.nombre} $${s.precio.toLocaleString()}
+
+</button>
+
+`;
+      });
+
+      let carrito = [];
+      let total = 0;
+
+      function agregar(i) {
+        carrito.push(servicios[i]);
+
+        total += servicios[i].precio;
+
+        mostrarCarrito();
+      }
+
+      function mostrarCarrito() {
+        let contenedor = document.getElementById("carrito");
+
+        contenedor.innerHTML = "";
+
+        carrito.forEach((s, index) => {
+          contenedor.innerHTML += `
+
+<button onclick="eliminar(${index})">
+
+${s.nombre} ❌
+
+</button>
+
+`;
+        });
+
+        document.getElementById("total").innerText =
+          "Total: $" + total.toLocaleString();
+      }
+
+      function eliminar(i) {
+        total -= carrito[i].precio;
+
+        carrito.splice(i, 1);
+
+        mostrarCarrito();
+      }
+
+      function enviarWhatsapp() {
+        let mensaje = "Hola quiero comprar:\n\n";
+
+        carrito.forEach((s) => {
+          mensaje += "- " + s.nombre + " $" + s.precio + "\n";
+        });
+
+        mensaje += "\nTotal: $" + total.toLocaleString();
+
+        let url =
+          "https://wa.me/573222190187?text=" + encodeURIComponent(mensaje);
+
+        window.open(url);
+      }
+    </script>
   </body>
 </html>
